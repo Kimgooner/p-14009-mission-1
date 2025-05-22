@@ -20,6 +20,7 @@ public class Main {
             String input = scanner.nextLine();
             String command = input.split("\\?")[0];
             String params = input.contains("?") ? input.split("\\?", 2)[1] : "";
+            int id = 0;
 
             switch (command) {
                 case "등록":
@@ -39,14 +40,32 @@ public class Main {
                     break;
 
                 case "삭제":
-                    int id = Integer.parseInt(params.substring(3));
+                    id = Integer.parseInt(params.substring(3));
 
-                    if(contents[id].isEmpty() || contents[id].equals("삭제됨")){
+                    if(count < id || contents[id-1].equals("삭제됨")){
                         System.out.println(id + "번 명언은 존재하지 않습니다.");
                     }
                     else {
-                        contents[id] = "삭제됨";
+                        contents[id-1] = "삭제됨";
                         System.out.println(id + "번 명언이 삭제되었습니다.");
+                    }
+                    break;
+
+                case "수정":
+                    id = Integer.parseInt(params.substring(3));
+
+                    if(count < id || contents[id-1].equals("삭제됨")){
+                        System.out.println(id + "번 명언은 존재하지 않습니다.");
+                    }
+                    else {
+                        System.out.println("명언(기존): " + contents[id-1]);
+                        System.out.print("명언 :");
+                        String newContent = scanner.nextLine();
+                        contents[id-1] = newContent;
+                        System.out.println("작가(기존): " + authors[id-1]);
+                        System.out.print("작가 :");
+                        String newAuthor = scanner.nextLine();
+                        authors[id-1] = newAuthor;
                     }
                     break;
 
